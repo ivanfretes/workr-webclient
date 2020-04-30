@@ -15,7 +15,7 @@ const auth = require('../../middleware/verificar-token');
  * @route	GET api/auth
  * @access  Public
  */
-router.get('/',auth,  async function (req, res, next) {
+router.get('/me',auth,  async function (req, res, next) {
 	try {
 		const user = await User.findById(req.user.id).select('-password');
 		res.json(user);

@@ -19,14 +19,12 @@ var UserSchema = new mongoose.Schema({
     password : {
         type : 'String',
         required : true,
-        minlength : 6,
-        maxlength : 20
     },
  
-    mail : {
+    email : {
         type : 'String',
         default : null,
-        minlength : 15,
+        minlength : 10, 
         unique : true, 
         maxlength : 100
     },

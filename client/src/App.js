@@ -1,10 +1,13 @@
 import React, { Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-
 import './App.css';
 
-//import { Landing } from './componets/layaout/Landing';
+// UI
+import Container from '@material-ui/core/Container';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
 
+// Componets
 import TopBar from './components/template/TopBar';
 import Login from './components/pages/Login';
 import Register  from './components/pages/Register';
@@ -12,26 +15,47 @@ import Register  from './components/pages/Register';
 function App() {
     return (
         <Router>
-            <Fragment>
-                <TopBar />
-                 <Link to="/">Inicio</Link>
-                 <Link to="/login">Ingresar</Link>
-                 <Link to="/register">Crear una cuenta</Link>
-                <Route exact path="/" >
-                    
-                </Route>
+            <TopBar />
+            <Container component="main" maxWidth="xl">
+                <Link to="/">Inicio</Link>
+                <Link to="/login">Ingresar</Link>
+                <Link to="/register">Crear una cuenta</Link>
                 
-            
                 <Switch>
+                    <Route exact path="/" >
+                    
+                    </Route>
                     <Route exact path="/register" component={Register}>
 
                     </Route>
                     <Route exact path="/login" component={Login}></Route>
                 </Switch>
-                    
-                </Fragment>
+                
+                <Box mt={8}>
+                    <Copyright />
+                </Box>
+            </Container> 
         </Router>
   );
 }
+
+
+/**
+ * Componente de Copyright en el footer
+ */
+
+function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {'Copyright © '}
+      <Link color="inherit" href="https://workr.it/">
+        Workr.it
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
+
 
 export default App;
