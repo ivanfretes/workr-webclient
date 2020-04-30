@@ -8,6 +8,25 @@ var PerfilSchema = new mongoose.Schema({
         unique : true
     },
     
+    cargo : { 
+        type : String,
+        default : null
+    },
+
+    // Soy un Senio software Developer
+    estado_actual : {
+        type: String,
+        default : null
+    },
+
+    consideracion_experiencia : {
+        type : String,
+        enum : ['junio', 'semi-senior', 'senior', 'no_especificado'],
+        default : 'no_especificado'
+    },
+
+    experiencia_total : Number,
+
     avatar : { 
         type : String,
         default : null
@@ -38,7 +57,7 @@ var PerfilSchema = new mongoose.Schema({
         default : 'no_especificado'
     },
 
-    dispone_vehiculo : {
+    movilidad_propia : {
         type : String,
         enum : ['si', 'no', 'no_especificado'],
         default : 'no_especificado'
@@ -50,20 +69,107 @@ var PerfilSchema = new mongoose.Schema({
     },
 
     // Indica, el tipo de usuario, por defecto no le damos mucho enfasis
-    tipo_usuario : {
+    tipo_acceso : {
         type : String, 
         enum : ['rrhh', 'user'],
         default : 'user'
     },
 
-    referencias : [{
-        type : String,
-        default : null
+    habilidades : {
+        type : [String],
+        required : true,
+        default : []
+    },
+
+    ciudad : String,
+    pais : String,
+    ubicacion : {
+        lat : { type : String, default :null }, 
+        long : { type : String, default : null }
+    },
+
+    redes_sociales : {
+        facebook : {
+            type : String
+        },
+        twitter : {
+            type : String
+        },
+        instagram : {
+            type : String
+        },
+        linkedin : {
+            type : String
+        },
+        otro_sitio : {
+            type : String
+        }
+    },
+
+
+    experiencia_academica : [
+        {
+            carrera : {
+                type : String,
+                default : null
+            },
+            institucion : {
+                type : String,
+                default : null
+            }, 
+            fecha_desde : {
+                type : Date
+            },
+            fecha_hasta : {
+                type : Date
+            },
+            actual : {
+                type : Boolean,
+                default : false
+            }, 
+            descripcion : {
+                type : String
+            }, 
+            tipo_institucion : { 
+                type : String,
+                enum : ['univesidad', 'colegio', 'independiente', 'no_especificado'],
+                default : 'no_especificado'
+            },
+        }
+    ],
+
+    experiencia_laboral : [
+        {
+            ocupacion : {
+                type : String,
+                default : null
+            },
+            empresa: {
+                type : String,
+                default : null
+            }, 
+            fecha_desde : {
+                type : Date
+            },
+            fecha_hasta : {
+                type : Date
+            },
+            actual : {
+                type : Boolean,
+                default : false
+            }, 
+            descripcion : {
+                type : String
+            }
+        }
+    ],
+
+
+    proyectos : [{
+        type : Schema.Types.ObjectId,
+        ref : 'Proyecto',
     }],
-    habilidades : [{
-        type : String,
-        default : null
-    }],
+
     _created_at : {
         type : Date,
         default : Date.now()

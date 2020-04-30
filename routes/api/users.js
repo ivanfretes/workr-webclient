@@ -21,6 +21,7 @@ router.get('/', async function (req, res) {
 	});
 });
 
+
 /**
  * Listado de usuarios
  * 
@@ -77,11 +78,7 @@ router.post('/',
 				res.status(400).json({errors : [{msg : "Usuario o correo no disponible"}]})
 			}
 
-			const avatar = gravatar.url(email, {
-				s: '200',
-				r: 'pg',
-				d: 'mm' 
-			});
+			const avatar = gravatar.url(email, { s: '200', r: 'pg', d: 'mm' });
 
 			user = new User({
 				nombre,

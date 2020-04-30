@@ -22,7 +22,9 @@ const ProyectoSchema = new Schema({
             ref : 'User',
             unique : true
         }
-    ];
+    ]
+}, {
+    collection : "proyectos"
 })
 
 module.exports = model('Proyecto', ProyectoSchema);

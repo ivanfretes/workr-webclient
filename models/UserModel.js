@@ -34,6 +34,11 @@ var UserSchema = new mongoose.Schema({
         type : 'String',
         default : null
     },
+
+    avartar : { 
+        type : 'String',
+        default : null
+    },
  
     _created_at : {
         type : Date,
