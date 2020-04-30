@@ -25,14 +25,15 @@ var EmpleoSchema = new mongoose.Schema({
        type: mongoose.Schema.Types.ObjectId , 
        ref : 'User'
     }],
-    profesiones_relacionadas : [ {  // Profesiones que pueden ser parte en la busqueda de un perfil de usuario
-       type: mongoose.Schema.Types.ObjectId , 
-       ref : 'ProfesionCargo'
-    }],
-    profesiones_relacionadas2 : [ {  // Lo mismo que profesiones_relacionadas solo que Texto
-       type: 'String', 
-       default : null
-    }],
+
+    // Profesiones que pueden ser parte en la busqueda de un perfil de usuario
+    profesiones_relacionadas : [ 
+        {  
+            type: mongoose.Schema.Types.ObjectId , 
+            ref : 'ProfesionCargo'
+        }
+    ],
+    
     titulo : String,
     descripcion : {
         maxlength : 1000,
@@ -98,18 +99,33 @@ var EmpleoSchema = new mongoose.Schema({
 })
 
 
+/**
+ * Agregar una empresa al empleo
+ */
 EmpleoSchema.method.addEmpresa = (empresaId) => {
     this.empresa = mongoose.Types.ObjectId(empresaId);
 };
 
+
+/**
+ * Agregar un profesion al empleo
+ */
 EmpleoSchema.method.addProfesionRelacionada = (profesionId) => {
     this.profesiones_relacionadas.push(mongoose.Types.ObjectId(profesionId))
 };
 
+
+/**
+ * Agregar un requisito al empleo
+ */
 EmpleoSchema.method.addRequisito = (requisitoId) => {
     this.requisitos.push(mongoose.Types.ObjectId(requisitoId))
 };
 
+
+/**
+ * Agregar una conexion al empleo
+ */
 EmpleoSchema.method.addConexion = (userId) => {
     this.requisitos.push(mongoose.Types.ObjectId(userId))
 };

@@ -22,7 +22,7 @@ const ProyectoSchema = new Schema({
     descripcion : {
         type : String,
         required : true
-    }
+    },
 
     ciudad : {
         type : String,

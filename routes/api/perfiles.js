@@ -88,16 +88,18 @@ router.get('/user/:user_id', async function (req, res) {
 
 
 /**
+ * Crea o actualiza un perfil para el usaurio
+ * 
  * @route	POST api/perfiles
- * @des 	Crea o actualiza un perfil para el usaurio
  * @access  Private
  */
 router.post('/', [ auth , 
     [
-        check('bio_actual', 'Una descripción de tu perfil es requerida')
+        check('bio_actual', 'Descripción del perfil es requerida')
             .not().isEmpty(),
-        check('habilidades', 'Habilidades son requeridas')
-            .not().isEmpty()
+        check('pais', 'Ingrese su páis')
+        //check('habilidades', 'Habilidades son requeridas')
+//            .not().isEmpty()
     ]], async function (req, res) {
 
     const errors = validationResult(req);        
@@ -124,7 +126,7 @@ router.post('/', [ auth ,
     try {
         let perfil = await Perfil.findOne({ user : req.user.id });
         if (perfil){
-            // Actualizar
+
             perfil = await Perfil.findOneAndUpdate(
                 { user : req.user.id }, 
                 { $set : perfilTmp },
