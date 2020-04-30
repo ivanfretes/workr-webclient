@@ -44,7 +44,7 @@ router.get('/:id', async function (req, res) {
 
 
 /**
- * Nuevo Usuario
+ * Nuevo/ Registro de  Usuario
  * 
  * @route	POST api/users
  * @access  Public
@@ -54,10 +54,10 @@ router.post('/',
 		check('nombre', 'Nombre es Requerido').not().isEmpty(),
 		check('apellido', 'Apellido es Requerido').not().isEmpty(),
 		check('email', 'Ingrese un correo valido').isEmail(),
-		check('password').isLength({min : 6 }),
+		check('password', 'Contraseña debe contener al menos 6 caracteres').isLength({min : 6 }),
 		check('password2').custom((value, {req}) => {
 			if (value !== req.body.password){
-				throw new Error('Verifique su contraseña')
+				throw new Error('Contraseñas no coinciden')
 			}
 
 			return true;
@@ -95,9 +95,8 @@ router.post('/',
 
 			const salt = await bcrypt.genSaltSync(10);
 			user.password = await bcrypt.hash(password, salt);
-			
 			await user.save();
-
+			
 			const payload = {
 				user : {
 					id : user.id, 
