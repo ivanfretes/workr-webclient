@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import TopBar from './components/template/TopBar';
 import Login from './components/pages/Login';
 import Register  from './components/pages/Register';
+import Index  from './components/pages/Index';
 
 function App() {
     return (
@@ -22,7 +23,7 @@ function App() {
                 <Link to="/register">Crear una cuenta</Link>
                 
                 <Switch>
-                    <Route exact path="/" >
+                    <Route exact path="/" component={Index}>
                     
                     </Route>
                     <Route exact path="/register" component={Register}>

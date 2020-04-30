@@ -123,7 +123,7 @@ router.post('/',
 
 
 /**	
- * Actualiza la informacion de un usuario
+ * Actualiza la informacion de un usuario, De momento se encuentra inactivo
  */
 router.put('/:id', function (req, res) {
 	let id = req.params.id;
