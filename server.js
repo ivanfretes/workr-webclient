@@ -18,7 +18,7 @@ app.use(bodyParser.json())
  */
 
 app.get('/', (req, res) => {
-    res.send('API Runing')
+    res.json('api v1');
 });
 
 app.use('/api/auth', require('./routes/api/auth'));

@@ -7,12 +7,7 @@ var PerfilSchema = new mongoose.Schema({
         required : true,
         unique : true
     },
-    foto : { 
-        type : String,
-        default : null
-    },
-
-    //
+    
     avatar : { 
         type : String,
         default : null
@@ -28,12 +23,6 @@ var PerfilSchema = new mongoose.Schema({
         default : null
     },
 
-    // Posibilidad de generar un nuevo token, pero debe ser unique
-    token : { 
-        type : String,
-        default : null
-    },
-    
     posibilidad_remoto : { 
         type : 'String',
         enum : ['no', 'si', 'no_especificado'],
@@ -41,24 +30,32 @@ var PerfilSchema = new mongoose.Schema({
     },
 
     bio_actual : String, // Biografia actual
-    empresa_actual : String, // Descripcion Actual
+    empresa_actual : String, // Empresa Actual
 
     freelance : {
         type : String,
         enum : ['si', 'no', 'no_especificado'],
         default : 'no_especificado'
     },
+
     dispone_vehiculo : {
         type : String,
         enum : ['si', 'no', 'no_especificado'],
         default : 'no_especificado'
     },
-    salario_pretendido : Number,
-    rol : {
+
+    salario_pretendido : {
+        type: Number,
+        default : null
+    },
+
+    // Indica, el tipo de usuario, por defecto no le damos mucho enfasis
+    tipo_usuario : {
         type : String, 
         enum : ['rrhh', 'user'],
         default : 'user'
     },
+
     referencias : [{
         type : String,
         default : null
@@ -76,6 +73,7 @@ var PerfilSchema = new mongoose.Schema({
         default : Date.now()
     }
 }, {
+    // Nombre de la coleccion en mongo
     collection : 'perfiles'
 })
 
