@@ -19,7 +19,9 @@ const Perfil = require('../../models/PerfilModel')
 router.get('/me', auth,  async function (req, res) {
 	try {
         const perfil = await Perfil.findOne({ user : req.user.id })
-            .populate('user', ['nombre', 'apellido', 'avatar']);
+            .populate('User', ['nombre', 'apellido', 'avatar']);
+
+        return res.json(req.user);
 
         if (!perfil){
 			res.status(404).json({
@@ -107,13 +109,16 @@ router.post('/', [ auth ,
 
     const { bio_actual, habilidades } = req.body;
 
-    let perfilField = {};
-    perfilField.user = req.user.id;
-    if (bio_actual) perfilField.bio_actual = bio_actual;
-    if (habilidades) 
-        perfilField.habilidades = habilidades.split(',').map(
+    // Informacion a ser insertada en el campo perfil
+    let perfilTmp = {};
+    perfilTmp.user = req.user.id;
+
+    if (bio_actual) perfilTmp.bio_actual = bio_actual;
+    if (habilidades) {
+        perfilTmp.habilidades = habilidades.split(',').map(
             habilidad => habilidad.trim()
         );
+    }
     
 
     try {
@@ -122,7 +127,7 @@ router.post('/', [ auth ,
             // Actualizar
             perfil = await Perfil.findOneAndUpdate(
                 { user : req.user.id }, 
-                { $set : perfilField },
+                { $set : perfilTmp },
                 { new : true }
             );
 
@@ -130,7 +135,7 @@ router.post('/', [ auth ,
         }
 
         // Crear
-        perfil = new Perfil(perfilField);
+        perfil = new Perfil(perfilTmp);
         await perfil.save();
 
         res.json(pefil);

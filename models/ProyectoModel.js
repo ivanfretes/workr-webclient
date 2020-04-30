@@ -19,6 +19,11 @@ const ProyectoSchema = new Schema({
         default : 'no_especificado'
     },
 
+    descripcion : {
+        type : String,
+        required : true
+    }
+
     ciudad : {
         type : String,
         default : null

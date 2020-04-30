@@ -78,7 +78,6 @@ var PerfilSchema = new mongoose.Schema({
     habilidades : {
         type : [String],
         required : true,
-        default : []
     },
 
     ciudad : String,
