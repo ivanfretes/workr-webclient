@@ -5,7 +5,9 @@ const ProyectoSchema = new Schema({
         type : String,
         required : true
     },
-    user : {
+
+    // Usuario propietario del proyecto
+    propietario : {
         type : Schema.Types.ObjectId,
         ref : 'User',
     },

@@ -10,12 +10,12 @@ const auth = require('../../middleware/verificar-token');
 
 
 /**
- * Retorna informacion del usuario, si el token se encuentra activo
+ * Retorna informacion del usuario autenticado, token inicializado
  * 
  * @route	GET api/auth
  * @access  Public
  */
-router.get('/me', auth,  async function (req, res, next) {
+router.get('/', auth,  async function (req, res, next) {
 	try {
 		const user = await User.findById(req.user.id).select('-password');
 		res.json(user);

@@ -107,6 +107,9 @@ var PerfilSchema = new mongoose.Schema({
     },
 
 
+    /**
+     * Si actual es true, significa que es su actual entidad educativa
+     */
     experiencia_academica : [
         {
             carrera : {
@@ -123,6 +126,7 @@ var PerfilSchema = new mongoose.Schema({
             fecha_hasta : {
                 type : Date
             },
+
             actual : {
                 type : Boolean,
                 default : false
@@ -138,6 +142,9 @@ var PerfilSchema = new mongoose.Schema({
         }
     ],
 
+    /**
+     *  Si actual es true, significa que es su actual empleo
+     */
     experiencia_laboral : [
         {
             ocupacion : {
@@ -164,11 +171,6 @@ var PerfilSchema = new mongoose.Schema({
         }
     ],
 
-
-    proyectos : [{
-        type : Schema.Types.ObjectId,
-        ref : 'Proyecto',
-    }],
 
     _created_at : {
         type : Date,
