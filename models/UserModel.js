@@ -3,7 +3,8 @@ var mongoose = require('mongoose');
 var UserSchema = new mongoose.Schema({
     nombre : {
         type : String,
-        required : true
+        required : true,
+        unique : true
     },
     apellido : {
         type : String,
