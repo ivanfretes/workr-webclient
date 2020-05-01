@@ -12,12 +12,15 @@ import TopBar from './components/template/TopBar';
 import Login from './components/pages/Login';
 import Register  from './components/pages/Register';
 import Index  from './components/pages/Index';
+import HeaderIndex  from './components/template/HeaderIndex';
 
 function App() {
     return (
         <Router>
             <TopBar />
             <Container component="main" maxWidth="xl">
+                <HeaderIndex />
+
                 <Link to="/">Inicio</Link>
                 <Link to="/login">Ingresar</Link>
                 <Link to="/register">Crear una cuenta</Link>

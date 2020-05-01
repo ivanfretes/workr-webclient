@@ -48,7 +48,7 @@ router.get('/me', auth,  async function (req, res) {
 router.get('/', async function (req, res) {
 	try {
         const perfiles = await Perfil.find()
-            .populate('user', ['nombre', 'apellido', 'avatar']);
+            .populate('user', ['nombre', 'apellido']);
 
         res.json(perfiles);
 
@@ -104,9 +104,9 @@ router.post('/', [ auth ,
     [
         check('bio_actual', 'Descripción del perfil es requerida')
             .not().isEmpty(),
-        check('pais', 'Ingrese su páis').not().isEmpty()
-        //check('habilidades', 'Habilidades son requeridas')
-//            .not().isEmpty()
+        check('pais', 'Ingrese su páis').not().isEmpty(),
+        check('habilidades', 'Menciona tus habilidades')
+            .not().isEmpty()
     ]], async function (req, res) {
 
     const errors = validationResult(req);        
