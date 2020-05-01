@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 
 const BusquedaSchema = Schema({
-    q : {
+    valor_buscado : {
         type : String,
         required : true
     },

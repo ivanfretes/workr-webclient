@@ -21,7 +21,6 @@ router.get('/me', auth,  async function (req, res) {
         const perfil = await Perfil.findOne({ user : req.user.id })
             .populate('User', ['nombre', 'apellido', 'avatar']);
 
-        return res.json(req.user);
 
         if (!perfil){
 			res.status(404).json({
@@ -97,7 +96,7 @@ router.post('/', [ auth ,
     [
         check('bio_actual', 'Descripción del perfil es requerida')
             .not().isEmpty(),
-        check('pais', 'Ingrese su páis')
+        check('pais', 'Ingrese su páis').not().isEmpty()
         //check('habilidades', 'Habilidades son requeridas')
 //            .not().isEmpty()
     ]], async function (req, res) {
@@ -109,13 +108,14 @@ router.post('/', [ auth ,
         });
     }
 
-    const { bio_actual, habilidades } = req.body;
+    const { pais, bio_actual, habilidades } = req.body;
 
     // Informacion a ser insertada en el campo perfil
     let perfilTmp = {};
     perfilTmp.user = req.user.id;
 
     if (bio_actual) perfilTmp.bio_actual = bio_actual;
+    if (pais) perfilTmp.pais = pais;
     if (habilidades) {
         perfilTmp.habilidades = habilidades.split(',').map(
             habilidad => habilidad.trim()
