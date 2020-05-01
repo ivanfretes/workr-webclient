@@ -190,15 +190,12 @@ router.post('/', [ auth ,
                 { new : true }
             );
 
-            res.json(perfil);
+        } else {
+            perfil = new Perfil(perfilTmp);
+            await perfil.save();
         }
 
-        console.log('Ok');
-        // Crea el perfil 
-        perfil = new Perfil(perfilTmp);
-        await perfil.save();
-
-        res.json(pefil);
+        res.json(perfil);
 
     } catch (error) {
         console.log(error);
