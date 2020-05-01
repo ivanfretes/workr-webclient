@@ -19,9 +19,8 @@ const Perfil = require('../../models/PerfilModel')
 router.get('/me', auth,  async function (req, res) {
 	try {
         const perfil = await Perfil.findOne({ user : req.user.id })
-            .populate('User', ['nombre', 'apellido', 'avatar']);
-
-
+                            .populate('user', ['nombre', 'apellido', 'avatar']);
+        
         if (!perfil){
 			res.status(404).json({
                 errors : [{
@@ -48,7 +47,7 @@ router.get('/me', auth,  async function (req, res) {
 router.get('/', async function (req, res) {
 	try {
         const perfiles = await Perfil.find()
-            .populate('user', ['nombre', 'apellido']);
+                            .populate('user', ['nombre', 'apellido', 'avatar']);
 
         res.json(perfiles);
 
@@ -66,21 +65,21 @@ router.get('/', async function (req, res) {
  */
 router.get('/user/:user_id', async function (req, res) {
 	try {
-        const { user_id } = req.params;
-
-        const pefil = await Perfil.findOne({ user : user_id })
-            .populate('user', ['nombre', 'apellido', 'avatar']);
+        const pefil = await Perfil.findOne({ user : req.params.user_id })
+                        .populate('user', ['nombre', 'apellido', 'avatar']);
 
         if (!pefil){
-            return res.status(400).json({
-                msg : 'Perfil no encontrado'
-            });
+            res.status(400).json({ msg : 'Perfil no encontrado' });
         }
 
         res.json(pefil);
 
     } catch (error) {
         console.log(error.message);
+
+        if(error.kind = 'ObjectId'){
+            return res.status(400).json({ msg : 'Perfil no encontrado' });
+        }
         res.status(500).send("Server error");
     }
 });
@@ -102,7 +101,7 @@ router.post('/me/avatar', auth, (req, res) => {
  */
 router.post('/', [ auth , 
     [
-        check('bio_actual', 'Descripción del perfil es requerida')
+        check('bio_actual', 'Biografia del perfil es requerida')
             .not().isEmpty(),
         check('pais', 'Ingrese su páis').not().isEmpty(),
         check('habilidades', 'Menciona tus habilidades')
@@ -182,9 +181,6 @@ router.post('/', [ auth ,
     if (linkedin) perfilTmp.redes_sociales.linkedin = linkedin;
     if (mi_web) perfilTmp.redes_sociales.mi_web = mi_web;
 
-    console.log(youtube)
-    console.log(perfilTmp);
-
     try {
         let perfil = await Perfil.findOne({ user : req.user.id });
         if (perfil){
@@ -209,6 +205,55 @@ router.post('/', [ auth ,
 
 });
 
+/**
+ * Elimina el perfil y el usuario
+ */
+router.delete('/', auth, async (req, res) => {
 
+    try {
+        await Perfil.findOneAndRemove({ user : req.user.id });
+        await User.findOneAndRemove({ _id : req.user.id });
+        res.json({ msg : 'Usuario Eliimnado'});
+    } catch (error) {
+        console.log(error.message)
+        res.status(500).send('Server Error');
+    }
+    
+})
+
+
+/**
+ * Agregando experiencia a un perfil
+ */
+router.put('/experiencia', auth, [
+    check('ocupacion', 'Ocupacion es requerida').not().isEmpty(),
+    check('empresa', 'Empresa es requerida').not().isEmpty(),
+    check('fecha_desde', 'Fecha Inicial es requerida').not().isEmpty(),
+    check('fecha_hasta', 'Fecha Hasta es requerida').not().isEmpty(),
+    
+] , async (req, res) => {
+
+    try {
+        let perfil = await Perfil.findOneAndUpdate({ user : req.user.id });
+    
+        let experienciaTmp = {};
+        if (ocupacion) experienciaTmp.ocupacion = ocupacion;
+        if (empresa) experienciaTmp.empresa = empresa;
+        if (fecha_desde) experienciaTmp.fecha_desde = fecha_desde;
+        if (fecha_hasta) experienciaTmp.fecha_hasta = fecha_hasta;
+        if (actual) experienciaTmp.actual = actual;
+        if (descripcion) experienciaTmp.descripcion = descripcion;
+
+        perfil.experiencia_laboral = experienciaTmp;
+        await perfil.save();
+
+        res.json(perfil);
+
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send('Server error');
+    }
+
+});
 
 module.exports = router;
