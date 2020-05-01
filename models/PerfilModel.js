@@ -3,9 +3,7 @@ var mongoose = require('mongoose');
 var PerfilSchema = new mongoose.Schema({
     user : {
         type : mongoose.Schema.Types.ObjectId,
-        ref : 'User',
-        required : true,
-        unique : true
+        ref : 'User'
     },
     
     cargo : { 
@@ -82,7 +80,7 @@ var PerfilSchema = new mongoose.Schema({
 
     ciudad : String,
     pais : String,
-    ubicacion : {
+    geoubicacion : {
         lat : { type : String, default :null }, 
         long : { type : String, default : null }
     },
@@ -100,7 +98,7 @@ var PerfilSchema = new mongoose.Schema({
         linkedin : {
             type : String
         },
-        otro_sitio : {
+        mi_web : {
             type : String
         }
     },

@@ -64,7 +64,7 @@ var EmpleoSchema = new mongoose.Schema({
         type : Date,
         default : null 
     },
-    disponer_vehiculo : {
+    movilidad_propia : {
         type : 'String',
         enum : [ 'si' , 'no' ],
         default : 'no'
