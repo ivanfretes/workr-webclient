@@ -87,19 +87,22 @@ var PerfilSchema = new mongoose.Schema({
 
     redes_sociales : {
         facebook : {
-            type : String
+            type : String, default: null
         },
         twitter : {
-            type : String
+            type : String, default: null
         },
         instagram : {
-            type : String
+            type : String, default: null
         },
         linkedin : {
-            type : String
+            type : String, default: null
+        },
+        youtube : {
+            type : String, default: null
         },
         mi_web : {
-            type : String
+            type : String, default: null
         }
     },
 

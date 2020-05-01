@@ -139,6 +139,7 @@ router.post('/', [ auth ,
         twitter,
         instagram,
         linkedin,
+        youtube,
         mi_web,
     } = req.body;
 
@@ -170,15 +171,19 @@ router.post('/', [ auth ,
     if (consideracion_experiencia) perfilTmp.consideracion_experiencia = consideracion_experiencia;
 
     // Geoubicacion
-    perfilTmp.geoubicacion = {}
+    perfilTmp.geoubicacion = {};
 
     // Redes Sociales
     perfilTmp.redes_sociales = {};
     if (facebook) perfilTmp.redes_sociales.facebook = facebook;
     if (twitter) perfilTmp.redes_sociales.twitter = twitter;
+    if (youtube) perfilTmp.redes_sociales.youtube = youtube;
     if (instagram) perfilTmp.redes_sociales.instagram = instagram;
     if (linkedin) perfilTmp.redes_sociales.linkedin = linkedin;
     if (mi_web) perfilTmp.redes_sociales.mi_web = mi_web;
+
+    console.log(youtube)
+    console.log(perfilTmp);
 
     try {
         let perfil = await Perfil.findOne({ user : req.user.id });
