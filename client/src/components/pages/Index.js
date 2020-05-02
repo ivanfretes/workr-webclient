@@ -6,11 +6,13 @@ import { BrowserRouter as Router, Link } from 'react-router-dom';
  * Box de la pagina principal (Abajo del header)
  */
 const headerContent = {
-  title : `Una nueva forma de conectar ideas`,
-  date : '',
-  description : 'Bienvenido al espacio ideal para conocer nuevas personas y proyectos en tu ambiente de trabajo',
+  title : `La nueva forma de conectar ideas, proyectos y empleo`,
+  date : 'Registrarse',
+  description : 'En workr vas a conocer a las próximas personas con las que vas a trabajar o iniciar un negocio',
   image : 'https://workr.it/images/undraw_work_time_lhoj.svg', 
-  imageTitle : 'Imagen Principal'
+  imageTitle : 'Imagen Principal',
+  linkText : 'Registrarse',
+  link : '/register'
 }
 
 const Index = () => {

@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
 var EmpleoSchema = new mongoose.Schema({
-    requisitos : [ { 
-       type: mongoose.Schema.Types.ObjectId , 
-       ref : 'Requisito'
+    requisitos : [ {
+        type : String
     }],
+
     edad_min : {
         type : Number,
         default : null
@@ -17,22 +17,15 @@ var EmpleoSchema = new mongoose.Schema({
         type : Number,
         default : null
     },
-    contrato_periodo : {
-        type : Number,
-        default : null
-    },
     conexiones : [ {  // Usuarios potenciales para el cargo
        type: mongoose.Schema.Types.ObjectId , 
        ref : 'User'
     }],
 
-    // Profesiones que pueden ser parte en la busqueda de un perfil de usuario
-    profesiones_relacionadas : [ 
-        {  
-            type: mongoose.Schema.Types.ObjectId , 
-            ref : 'ProfesionCargo'
-        }
-    ],
+    interesados : [ {  // Usuarios potenciales para el cargo
+       type: mongoose.Schema.Types.ObjectId , 
+       ref : 'User'
+    }],
     
     titulo : String,
     descripcion : {

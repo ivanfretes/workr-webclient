@@ -53,7 +53,7 @@ export default function HeaderIndex(props) {
             <Typography variant="h5" color="inherit" paragraph>
               {content.description}
             </Typography>
-            <Link variant="subtitle1" href="#">
+            <Link variant="subtitle1" href={content.link}>
               {content.linkText}
             </Link>
           </div>

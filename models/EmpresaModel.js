@@ -13,9 +13,19 @@ var EmpresaSchema = new mongoose.Schema({
         type : String, 
         default : null
     },
-    rubro : [{
-        type : String,
-    }],
+    rubro : {
+        type : [String],
+    },
+    redes_sociales : {
+        facebook : {
+            type: String
+        },
+        twitter : {
+            type : String
+        }, 
+
+
+    },
     _created_at : {
         type : Date,
         default : Date.now()

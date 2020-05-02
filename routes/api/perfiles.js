@@ -225,17 +225,35 @@ router.delete('/', auth, async (req, res) => {
 /**
  * Agregando experiencia a un perfil
  */
-router.put('/experiencia', auth, [
+router.put('/me/experiencia', auth, [
     check('ocupacion', 'Ocupacion es requerida').not().isEmpty(),
     check('empresa', 'Empresa es requerida').not().isEmpty(),
     check('fecha_desde', 'Fecha Inicial es requerida').not().isEmpty(),
     check('fecha_hasta', 'Fecha Hasta es requerida').not().isEmpty(),
-    
+    check('descripcion', 'Agrega una descripcion')
 ] , async (req, res) => {
 
+    const errors = validationResult(req);        
+    if (!errors.isEmpty()){
+        res.status(400).json({
+            errors : errors.array()
+        });
+    }
+
+    const {
+        ocupacion,
+        empresa,
+        fecha_desde,
+        fecha_hasta,
+        actual,
+        descripcion
+    } = req.body;
+
     try {
+        
         let perfil = await Perfil.findOneAndUpdate({ user : req.user.id });
-    
+        
+        // Nueva Experiencia
         let experienciaTmp = {};
         if (ocupacion) experienciaTmp.ocupacion = ocupacion;
         if (empresa) experienciaTmp.empresa = empresa;
@@ -244,7 +262,7 @@ router.put('/experiencia', auth, [
         if (actual) experienciaTmp.actual = actual;
         if (descripcion) experienciaTmp.descripcion = descripcion;
 
-        perfil.experiencia_laboral = experienciaTmp;
+        perfil.experiencia_laboral.unshift(experienciaTmp);
         await perfil.save();
 
         res.json(perfil);
@@ -255,5 +273,37 @@ router.put('/experiencia', auth, [
     }
 
 });
+
+
+/**
+ * Agregando experiencia a un perfil
+ */
+router.delete('/me/experiencia/:id', auth, , async (req, res) => {
+
+    try {
+        
+        let perfil = await Perfil.findOneAndUpdate({ user : req.user.id });
+        
+        // Nueva Experiencia
+        let experienciaTmp = {};
+        if (ocupacion) experienciaTmp.ocupacion = ocupacion;
+        if (empresa) experienciaTmp.empresa = empresa;
+        if (fecha_desde) experienciaTmp.fecha_desde = fecha_desde;
+        if (fecha_hasta) experienciaTmp.fecha_hasta = fecha_hasta;
+        if (actual) experienciaTmp.actual = actual;
+        if (descripcion) experienciaTmp.descripcion = descripcion;
+
+        perfil.experiencia_laboral.unshift(experienciaTmp);
+        await perfil.save();
+
+        res.json(perfil);
+
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send('Server error');
+    }
+
+});
+
 
 module.exports = router;

@@ -16,7 +16,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 
 import { createMuiTheme } from '@material-ui/core/styles';
-import purple from '@material-ui/core/colors/';
+
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -123,6 +123,7 @@ export default function PrimarySearchAppBar() {
     </Menu>
   );
 
+  // Menu Movil
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
     <Menu
