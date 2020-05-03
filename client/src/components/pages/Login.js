@@ -1,18 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+//import FormControlLabel from '@material-ui/core/FormControlLabel';
+//import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
+//import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -37,6 +38,43 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn() {
   const classes = useStyles();
 
+  const [formData, setFormData] = useState({
+    email : '',
+    password : ''
+  });
+
+  const { email , password } = formData;
+
+  const onChangeInputForm = e => setFormData({
+    ...formData,
+    [e.target.name] : e.target.value
+  });
+
+  const onSubmitForm = async e => {
+    e.preventDefault();
+
+    if (password.trim() != ''){
+
+      try {
+        const res = await axios.post('/api/auth', JSON.stringify(formData) , {
+          headers : {
+            'Content-Type' : 'application/json'
+          }
+        });
+
+        console.log(res.data);
+      } catch (error) {
+        console.log(error.response.data);
+      }
+
+      
+    } else {
+      console.log('Password es requerido')
+    }
+  }
+
+
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -45,19 +83,22 @@ export default function SignIn() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Iniciar Sesión
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit={e => onSubmitForm(e)}>
           <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
             id="email"
-            label="Email Address"
+            label="Email"
             name="email"
+            value
             autoComplete="email"
             autoFocus
+            value={email}
+            onChange={e => onChangeInputForm(e)}
           />
           <TextField
             variant="outlined"
@@ -65,15 +106,17 @@ export default function SignIn() {
             required
             fullWidth
             name="password"
-            label="Password"
+            label="Contraseña"
             type="password"
             id="password"
             autoComplete="current-password"
+            value={password}
+            onChange={e => onChangeInputForm(e)}
           />
-          <FormControlLabel
+          {/*<FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
-          />
+          /> */}
           <Button
             type="submit"
             fullWidth
@@ -81,17 +124,18 @@ export default function SignIn() {
             color="primary"
             className={classes.submit}
           >
-            Sign In
+            Acceder
           </Button>
+
           <Grid container>
-            <Grid item xs>
+            {/*<Grid item xs>
               <Link href="#" variant="body2">
-                Forgot password?
+                Olvitaste la contraseña
               </Link>
-            </Grid>
+            </Grid> */}
             <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
+              <Link href="/register" variant="body2">
+                {"Todavia no tienes una cuenta?, Registrate"}
               </Link>
             </Grid>
           </Grid>
