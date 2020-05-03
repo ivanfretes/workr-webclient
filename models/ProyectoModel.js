@@ -1,4 +1,4 @@
-import { Schema , model } from "mongoose";
+const {Schema , model}   = require('mongoose')
 
 const ProyectoSchema = new Schema({
     nombre_proyecto : {
@@ -40,21 +40,17 @@ const ProyectoSchema = new Schema({
     },
     
     // Listado de necesidades para el proyecto
-    recursos_necesarios : [
-        {
-            type : String, 
+    recursos_necesarios : {
+            type : [String], 
             default : null,
-        }
-    ],
-    interesados : [
-        {
-            type : Schema.model.ObjectId,
+    },
+    interesados : {
+            type : [Schema.Types.ObjectId],
             ref : 'User',
             unique : true
-        }
-    ]
+    }
 }, {
     collection : "proyectos"
 })
 
-module.exports = mongoose.model('Proyecto', ProyectoSchema);
+module.exports = model('Proyecto', ProyectoSchema);

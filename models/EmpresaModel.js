@@ -6,7 +6,7 @@ const EmpresaSchema = new mongoose.Schema({
     descripcion : {
         maxlength : 1000,
         minlength : 100,
-        type : Text    
+        type : String    
     },
     cant_empleados : Number,
     logo : {
@@ -23,8 +23,15 @@ const EmpresaSchema = new mongoose.Schema({
         twitter : {
             type : String
         }, 
-
-
+        instagram : {
+            type : String
+        }, 
+        linkedin : {
+            type : String
+        }, 
+        web : {
+            type : String
+        }, 
     },
     _created_at : {
         type : Date,
@@ -35,6 +42,7 @@ const EmpresaSchema = new mongoose.Schema({
         default: Date.now()
     },
 })
+
 
 
 module.exports = mongoose.model('Empresa', EmpresaSchema);

@@ -27,6 +27,7 @@ app.use('/api/empleos', require('./routes/api/empleos'));
 app.use('/api/postulaciones', require('./routes/api/empresas'));
 app.use('/api/empresas', require('./routes/api/empresas'));
 app.use('/api/perfiles', require('./routes/api/perfiles'));
+app.use('/api/proyectos', require('./routes/api/proyectos'));
 
 
 // The error handler must be before any other error middleware and after all controllers

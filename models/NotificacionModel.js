@@ -1,6 +1,6 @@
-import { Schema, model } from "mongoose";
+const mongoose = require('mongoose');
 
-const NotificacionSchema = Schema({
+const NotificacionSchema = mongoose.Schema({
     revisado : {
         type : Boolean,
         default : false
@@ -21,4 +21,4 @@ const NotificacionSchema = Schema({
     },
 })
 
-module.exports = model('Notificacion', NotificacionSchema);
+module.exports = mongoose.model('Notificacion', NotificacionSchema);

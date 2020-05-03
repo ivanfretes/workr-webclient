@@ -1,16 +1,16 @@
 const express = require('express');
 const router = express.Router();
-import Empresa from "../../models/EmpresaModel";
-import User from '../../models/UserModel';
+
+const Empresa = require('../../models/EmpresaModel')
 
 /**
  * Listado de Empresas
  */
-router.get('/', function(req, res, next) {
+router.get('/', async (req, res, next) => {
     
     try {
-        const empresas = Empresa.find({});
-        res.json(empresa)  
+        const empresas = await Empresa.find()
+        res.json(empresas);
 
     } catch (error) {
         console.log(error.message)
@@ -24,7 +24,7 @@ router.get('/:emp_id', (req, res) => {
     try {
         
         //Empresa.
-        
+        //return Empresa.find();        
 
     } catch (error) {
         console.log(error.message)

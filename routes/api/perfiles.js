@@ -13,7 +13,7 @@ const Perfil = require('../../models/PerfilModel')
 
 /**
  * @route	GET api/perfiles/me
- * @des 	Informacion del perfil que inicio sesion
+ * @des 	Informacion de mi perfil (Habiendo iniciado sesion)
  * @access  Private
  */
 router.get('/me', auth,  async function (req, res) {
@@ -82,14 +82,6 @@ router.get('/user/:user_id', async function (req, res) {
         }
         res.status(500).send("Server error");
     }
-});
-
-
-/**
- * Actualiza la foto de perfil de un usuario
- */
-router.post('/me/avatar', auth, (req, res) => {
-    return res.json(req.headers);
 });
 
 
@@ -188,7 +180,7 @@ router.post('/', [ auth ,
             perfil = await Perfil.findOneAndUpdate(
                 { user : req.user.id }, 
                 { $set : perfilTmp },
-                { new : true }
+                { new : true },
             );
 
         } else {
@@ -255,9 +247,6 @@ router.put('/me/experiencia', auth, [
             { user : req.user.id }, 
         );
         
-
-        return res.json(perfil);
-
         // Nueva Experiencia
         let experienciaTmp = {};
         if (ocupacion) experienciaTmp.ocupacion = ocupacion;
