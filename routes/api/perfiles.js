@@ -251,8 +251,13 @@ router.put('/me/experiencia', auth, [
 
     try {
         
-        let perfil = await Perfil.findOneAndUpdate({ user : req.user.id });
+        let perfil = await Perfil.findOne(
+            { user : req.user.id }, 
+        );
         
+
+        return res.json(perfil);
+
         // Nueva Experiencia
         let experienciaTmp = {};
         if (ocupacion) experienciaTmp.ocupacion = ocupacion;
@@ -276,26 +281,20 @@ router.put('/me/experiencia', auth, [
 
 
 /**
- * Agregando experiencia a un perfil
+ * Elimina una experiencia del perfil
  */
-router.delete('/me/experiencia/:id', auth, , async (req, res) => {
+router.delete('/me/experiencia/:exp_id', auth, async (req, res) => {
 
     try {
+        let perfil = await Perfil.findOne({ user : req.user.id });
         
-        let perfil = await Perfil.findOneAndUpdate({ user : req.user.id });
-        
-        // Nueva Experiencia
-        let experienciaTmp = {};
-        if (ocupacion) experienciaTmp.ocupacion = ocupacion;
-        if (empresa) experienciaTmp.empresa = empresa;
-        if (fecha_desde) experienciaTmp.fecha_desde = fecha_desde;
-        if (fecha_hasta) experienciaTmp.fecha_hasta = fecha_hasta;
-        if (actual) experienciaTmp.actual = actual;
-        if (descripcion) experienciaTmp.descripcion = descripcion;
+        const removeIndex = await perfil.experiencia_laboral
+            .map(item => item._id)
+            .indexOf(req.params.exp_id);
 
-        perfil.experiencia_laboral.unshift(experienciaTmp);
+        perfil.experiencia_laboral.splice(removeIndex, 1);
         await perfil.save();
-
+        
         res.json(perfil);
 
     } catch (error) {

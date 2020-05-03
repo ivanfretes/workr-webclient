@@ -149,11 +149,9 @@ var PerfilSchema = new mongoose.Schema({
         {
             ocupacion : {
                 type : String,
-                default : null
             },
             empresa: {
                 type : String,
-                default : null
             }, 
             fecha_desde : {
                 type : Date
@@ -168,7 +166,8 @@ var PerfilSchema = new mongoose.Schema({
             descripcion : {
                 type : String
             }
-        }
+        }, 
+        
     ],
 
 
