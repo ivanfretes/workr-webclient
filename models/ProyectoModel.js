@@ -57,4 +57,4 @@ const ProyectoSchema = new Schema({
     collection : "proyectos"
 })
 
-module.exports = model('Proyecto', ProyectoSchema);
+module.exports = mongoose.model('Proyecto', ProyectoSchema);

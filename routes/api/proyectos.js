@@ -1,6 +1,7 @@
 import { Router } from "express"
 import { check, validationResult } from "express-validator";
-import Proyecto from "../../models/ProyectoModel";
+
+const Proyecto = require("../../models/ProyectoModel");
 
 const router = Router();
 
@@ -25,7 +26,7 @@ router.post('/', auth , [
     check('pais', 'pais es requerido'),
     check('posibilidad_remoto', 'posibilidad_remoto es requerido'),
     check('recursos_necesarios', 'recursos_necesarios es requerido')
-],(req, res) => {
+],async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()){
         res.status(400).json(errors.array());
@@ -42,10 +43,14 @@ router.post('/', auth , [
             recursos_necesarios,
         } = req.body;
 
-        
-        Proyecto
+        console.log(nombre_proyecto);
+
+        let proyectos = await Proyecto.find({});
+        res.json(proyectos);
 
     } catch (error) {
+        console.log(error.message)
+        res.status(500).send('Server error');
         
     }
 

@@ -1,7 +1,7 @@
 const express = require('express');
 const connectDB = require('./config/db');
 const bodyParser = require('body-parser')
-//const sentry = require('@sentry/node')
+const sentry = require('@sentry/node')
 
 const app = express();
 

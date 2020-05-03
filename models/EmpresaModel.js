@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-var EmpresaSchema = new mongoose.Schema({
+const EmpresaSchema = new mongoose.Schema({
     nombre : String, 
     slogan : String,
     descripcion : {
@@ -35,3 +35,6 @@ var EmpresaSchema = new mongoose.Schema({
         default: Date.now()
     },
 })
+
+
+module.exports = mongoose.model('Empresa', EmpresaSchema);
