@@ -95,5 +95,35 @@ router.post('/', auth , [
 });
 
 
+/**
+ * Agregar interesado / usuario al proyecto (Completar)
+ * 
+ * @method PUT
+ * @link /api/proyectos/id/user/user_id
+ * @param user_id
+ * 
+ */
+
+router.put('/:proy_id/user/:user_id', auth , async (req, res) => {
+
+  /*  try {
+        const proyecto = Proyecto.findOne({_id : req.params.proy_id});
+
+        // Usuario Interesado
+        req.params.user_id;
+        proyecto.users.unshift()
+
+        proyecto = new Proyecto(proyectoTmp);
+        //await proyecto.save();
+        res.json(proyecto);
+
+    } catch (error) {
+        console.log(error.message)
+        res.status(500).send('Server error');
+        
+    }*/
+});
+
+
 
 module.exports = router;

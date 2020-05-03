@@ -41,14 +41,36 @@ const ProyectoSchema = new Schema({
     
     // Listado de necesidades para el proyecto
     recursos_necesarios : {
-            type : [String], 
-            default : null,
+        type : [String], 
+        default : null,
     },
-    interesados : {
-            type : [Schema.Types.ObjectId],
-            ref : 'User',
-            unique : true
-    }
+
+    // Usuarios interesados en un proyecto
+    users : [
+        {
+            user : {
+                type : [Schema.Types.ObjectId],
+                ref : 'user'
+            }
+        }
+    ],
+    
+    comentarios : [
+        {
+            user : {
+                type : [Schema.Types.ObjectId],
+                ref : 'user'
+            },
+            descripcion : {
+                type : String,
+                required : true
+            },
+            _created_at : {
+                type : Date,
+                default : Date.now()
+            }
+        }
+    ]
 }, {
     collection : "proyectos"
 })

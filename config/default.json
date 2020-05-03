@@ -2,5 +2,7 @@
 {
     "mongoURI": "mongodb+srv://ivan123:ivan123@meanstack-xihy1.mongodb.net/sample_airbnb?retryWrites=true&w=majority",
     "mongoURI2" : "mongodb://localhost/workr_db",
-    "jwtSecret" : "secreto"
+    "jwtSecret" : "secreto",
+    "githubClientId" : "43cdffd027c1e91c922d",
+    "githubClientSecret" : "dffae732738086410719036ed4f65a645183be7f"
 }

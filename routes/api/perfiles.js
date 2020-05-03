@@ -5,6 +5,8 @@ const bcrypt = require('bcryptjs');
 const gravatar = require('gravatar');
 const jwt = require('jsonwebtoken');
 const config = require('config');
+const request = require('request')
+
 const auth = require('../../middleware/verificar-token');
 
 const User = require('../../models/UserModel')
@@ -293,5 +295,38 @@ router.delete('/me/experiencia/:exp_id', auth, async (req, res) => {
 
 });
 
+
+/**
+ * Informacion de la cuenta de github oAuth
+ * @method GET
+ * @link perfiles/github/:username
+ * @params username
+ */
+router.get('/github/:username', (req, res) => {
+    try {
+        const options = {
+            uri : `https://api.github.com/users/${req.params.username}/repos?per_page=5%sort=created:asc&cliente_id=${config.get('githubClientId')}&cliente_secret=${config.get('githubClientSecret')}`,
+            method : 'GET', 
+            headers : {'user-agent' : 'node.js'}
+        }
+
+        request(options, (error, response, body) => {
+            if (error) console.error(error)
+            
+            if (response.statusCode !== 200){
+                res.status(404).status({msg : 'Perfil de github no encontrado'})
+            }
+            
+            console.log(body)
+
+            res.json(JSON.parse(body));
+        })
+
+
+    } catch (error) {
+        console.log(error.message)
+        res.status(500).send('Server Error')
+    }
+});
 
 module.exports = router;
