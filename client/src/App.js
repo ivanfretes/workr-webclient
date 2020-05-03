@@ -7,6 +7,10 @@ import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 
+// Redux
+import { Provider } from "react-redux";
+import store from './store';
+
 // Componets
 import TopBar from './components/template/TopBar';
 import Login from './components/pages/Login';
@@ -15,6 +19,7 @@ import Index  from './components/pages/Index';
 
 function App() {
     return (
+        <Provider store={store}>
         <Router>
             <TopBar />
             <Container component="main" maxWidth="xl">
@@ -33,6 +38,7 @@ function App() {
                 </Box>
             </Container> 
         </Router>
+        </Provider>
   );
 }
 
