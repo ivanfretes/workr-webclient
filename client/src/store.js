@@ -8,7 +8,7 @@ const initialState = {};
 const middlewate = [thunk]
 
 const store = createStore(
-    rootReducers, 
+    rootReducers,  // combineRedurects({})
     initialState,
     composeWithDevTools(applyMiddleware(...middlewate))
 )

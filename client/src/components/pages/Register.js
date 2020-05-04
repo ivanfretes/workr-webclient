@@ -13,6 +13,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import axios from "axios";
+import { connect } from "react-redux";
+import { setAlert } from '../../actions/alert';
+
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -38,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 /**
  * Componente de Registro
  */
-export default function SignUp() {
+const Register = (props) => {
 
     const [formData, setFormData] = useState({
         nombre: '',
@@ -62,7 +65,8 @@ export default function SignUp() {
         e.preventDefault();
 
         if (password != password2) {
-            console.log('Contraseñas no coinciden');
+            console.log();
+            props.setAlert('Contraseñas no coinciden', 'danger')
         } else {
             try {
                 const res = await axios.post('/api/users', JSON.stringify({ ...formData }), {
@@ -71,7 +75,8 @@ export default function SignUp() {
                     }
                 });
 
-                console.log(res.data);
+                
+                //console.log();
             } catch (error) {
                 console.log(error.response.data);
             }
@@ -185,3 +190,6 @@ export default function SignUp() {
         </Container>
     );
 }
+
+
+export default connect(null, { setAlert })(Register);
