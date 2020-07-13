@@ -15,7 +15,8 @@ import Link from '@material-ui/core/Link';
 import axios from "axios";
 import { connect } from "react-redux";
 import { setAlert } from '../../actions/alert';
-
+import AlertComponent from "../template/Alert";
+import PropTypes from 'prop-types'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -41,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 /**
  * Componente de Registro
  */
-const Register = (props) => {
+const Register = ({ setAlert }) => {
 
     const [formData, setFormData] = useState({
         nombre: '',
@@ -64,9 +65,8 @@ const Register = (props) => {
     const onSubmitForm = async e => {
         e.preventDefault();
 
-        if (password != password2) {
-            console.log();
-            props.setAlert('Contraseñas no coinciden', 'danger')
+        if (password !== password2) {
+            setAlert('Contraseñas no coinciden', 'warning')
         } else {
             try {
                 const res = await axios.post('/api/users', JSON.stringify({ ...formData }), {
@@ -74,9 +74,9 @@ const Register = (props) => {
                         'Content-Type' : 'application/json'
                     }
                 });
-
                 
-                //console.log();
+                // redirige
+
             } catch (error) {
                 console.log(error.response.data);
             }
@@ -90,13 +90,16 @@ const Register = (props) => {
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
+            
+            <AlertComponent />
+
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
                     <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
                     Cree una cuenta
-        </Typography>
+                </Typography>
                 <form className={classes.form} noValidate onSubmit={e => onSubmitForm(e)}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={6}>
@@ -192,4 +195,20 @@ const Register = (props) => {
 }
 
 
-export default connect(null, { setAlert })(Register);
+Register.propTypes = {
+    setAlert : PropTypes.func.isRequired
+}
+
+
+const mapStateToProps = null;
+
+const mapDispatchToProps = {
+    setAlert   
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register)
+
+
+
+
+
